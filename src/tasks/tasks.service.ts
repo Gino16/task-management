@@ -15,11 +15,11 @@ export class TasksService {
   getTasksByFilter(filterDto: GetTaskFilterDto): Task[] {
     const { status, search } = filterDto;
     let tasks = this.getAllTasks();
-    if (!status) {
+    if (status) {
       tasks = tasks.filter((task) => task.status === TaskStatus.OPEN);
     }
 
-    if (!search) {
+    if (search) {
       tasks = tasks.filter(
         (task) =>
           task.title.includes(search) || task.description.includes(search),
@@ -49,6 +49,9 @@ export class TasksService {
   }
   updateTaskStatus(id: string, status: TaskStatus): Task {
     const task = this.getTaskById(id);
+    if (!task) {
+      throw new NotFoundException(`Task with id ${id} not found`);
+    }
     task.status = status;
     return task;
   }
