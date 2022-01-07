@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
-import e from 'express';
 @Injectable()
 export class AuthService {
   constructor(
